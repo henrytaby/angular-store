@@ -23,4 +23,13 @@ export class ProductService {
       )
     );
   }
+
+  getOne(id: string){
+    return this.http.get<Product>(`https://api.escuelajs.co/api/v1/products/${id}`).pipe(
+      map(product => ({
+        ...product,
+        images: product.images.map(() => 'https://picsum.photos/480/480?r=' + Math.random())
+      }))
+    );
+  }
 }
