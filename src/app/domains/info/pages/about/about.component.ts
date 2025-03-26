@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CounterComponent } from "../../../shared/components/counter/counter.component";
+import { WaveAudioComponent } from "../../../info/components/wave-audio/wave-audio.component";
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, CounterComponent],
+  imports: [CommonModule, CounterComponent, WaveAudioComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
