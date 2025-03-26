@@ -1,5 +1,4 @@
-import { Component, inject, Input, signal, SimpleChanges } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 @Component({
@@ -11,7 +10,7 @@ import { CartService } from '../../services/cart.service';
 export class HeaderComponent {
   hideSideMenu = signal(true);
 
-  private cartService = inject(CartService);
+  private readonly cartService = inject(CartService);
 
   cart = this.cartService.cart;
   total = this.cartService.total;
@@ -20,7 +19,5 @@ export class HeaderComponent {
     console.log("entro!---");
     this.hideSideMenu.update(prevState => !prevState);
   }
-
-
 
 }

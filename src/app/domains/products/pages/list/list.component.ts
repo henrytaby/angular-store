@@ -4,6 +4,7 @@ import { ProductComponent} from './../../components/product/product.component';
 import { Product } from './../../../shared/models/product.model';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
 import { CartService } from '../../../shared/services/cart.service';
+import { ProductService } from '../../../shared/services/product.service';
 
 @Component({
   selector: 'app-list',
@@ -14,56 +15,22 @@ import { CartService } from '../../../shared/services/cart.service';
 export class ListComponent {
 
   products = signal<Product[]>([]);
-  private cartService = inject(CartService);
+  private readonly cartService = inject(CartService);
+  private readonly productService = inject(ProductService);
 
-  constructor(){
-    const initProducts: Product[] = [
-    {
-      id: Date.now(),
-      title: 'Producto 1',
-      price: 100,
-      image: 'https://picsum.photos/480/480?r=1',
-      creationAt: new Date().toISOString()
-    },
-    {
-      id: Date.now(),
-      title: 'Producto 2',
-      price: 102,
-      image: 'https://picsum.photos/480/480?r=2',
-      creationAt: new Date().toISOString()
-    },
-    {
-      id: Date.now(),
-      title: 'Producto 3',
-      price: 103,
-      image: 'https://picsum.photos/480/480?r=3',
-      creationAt: new Date().toISOString()
-    },
-    {
-      id: Date.now(),
-      title: 'Producto 4',
-      price: 100,
-      image: 'https://picsum.photos/480/480?r=1',
-      creationAt: new Date().toISOString()
-    },
-    {
-      id: Date.now(),
-      title: 'Producto 5',
-      price: 102,
-      image: 'https://picsum.photos/480/480?r=2',
-      creationAt: new Date().toISOString()
-    },
-    {
-      id: Date.now(),
-      title: 'Producto 6',
-      price: 103,
-      image: 'https://picsum.photos/480/480?r=3',
-      creationAt: new Date().toISOString()
-    },
-
-    ];
-    this.products.set(initProducts);
+  ngOnInit(){
+    this.productService.getProducts()
+    .subscribe({
+      next: (products) => {
+        this.products.set(products)
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
+
+
   addToCart(product: Product){
     this.cartService.addToCart(product);
   }

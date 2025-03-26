@@ -87,7 +87,7 @@ transition-transform bg-white "
   <div class="pt-2">
     <div *ngFor="let product of cart()" class="border-1 mb-1 rounded border-gray-400">
       <div class="flex space-x-2 items-center ">
-        <img [src]="product.image" [alt]="product.title" class="rounded w-12 h-12 object-cover object-center" />
+        <img [src]="product.images[0]" [alt]="product.title" class="rounded w-12 h-12 object-cover object-center" />
         <div>
           <p>{{ product.title }}</p>
           <p class="text-xs">{{ product.price }} Bs.</p>
