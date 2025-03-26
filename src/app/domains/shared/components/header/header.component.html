@@ -40,7 +40,7 @@
     </div>
     <div class="flex items-center">
       <button class="p-1 border rounded relative cursor-pointer" (click)="toggleSideMenu()">
-        <div class="absolute -top-2 -left-2 rounded h-5 w-5 text-white text-xs bg-black">{{ cart.length }}</div>
+        <div class="absolute -top-2 -left-2 rounded h-5 w-5 text-white text-xs bg-black">{{ cart().length }}</div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -85,7 +85,7 @@ transition-transform bg-white "
     </button>
   </div>
   <div class="pt-2">
-    <div *ngFor="let product of cart" class="border-1 mb-1 rounded border-gray-400">
+    <div *ngFor="let product of cart()" class="border-1 mb-1 rounded border-gray-400">
       <div class="flex space-x-2 items-center ">
         <img [src]="product.image" [alt]="product.title" class="rounded w-12 h-12 object-cover object-center" />
         <div>
