@@ -1,21 +1,11 @@
 
-<div class="grid grid-cols-3 gap-8">
-  <app-product title="Producto 1" [price]="12" img="https://picsum.photos/480/480?r=1"
-  (addToCart)="fromChild($event)"
-  ></app-product>
-  <app-product title="Producto 2" [price]="12" img="https://picsum.photos/480/480?r=2"
-  (addToCart)="fromChild($event)"
-  ></app-product>
-  <app-product title="Producto 3" [price]="12" img="https://picsum.photos/480/480?r=3"
-  (addToCart)="fromChild($event)"
-  ></app-product>
-  <app-product title="Producto 4" [price]="12" img="https://picsum.photos/480/480?r=4"
-  (addToCart)="fromChild($event)"
-  ></app-product>
-  <app-product title="Producto 5" [price]="12" img="https://picsum.photos/480/480?r=5"
-  (addToCart)="fromChild($event)"
-  ></app-product>
-  <app-product title="Producto 6" [price]="12" img="https://picsum.photos/480/480?r=6"
-  (addToCart)="fromChild($event)"
-  ></app-product>
+<div class="container mx-auto">
+<app-header [cart]="cart()" />
+  <div class="grid grid-cols-4 gap-4 mt-5">
+    <app-product
+    *ngFor="let product of products()"
+    [product]="product"
+    (addToCart)="addToCart($event)"
+    ></app-product>
+  </div>
 </div>
