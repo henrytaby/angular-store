@@ -7,8 +7,7 @@ import { Product } from '@shared/models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  private http = inject(HttpClient);
-
+  private readonly http = inject(HttpClient);
 
   constructor() { }
 
