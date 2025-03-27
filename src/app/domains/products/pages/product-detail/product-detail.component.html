@@ -4,24 +4,32 @@
   <div class="w-full flex flex-col md:flex-row md:space-x-10">
     <div class="flex flex-col w-full md:w-1/3">
       <div class="w-full rounded border border-gray-200">
-        <img
+        <div class="relative h-96">
+          <img
           alt="ecommerce"
+          [fill] = "true"
           class="w-full object-cover object-center"
-          [src]="cover()"
+          [ngSrc]="cover()"
+          priority
         />
+        </div>
+
       </div>
       <div class="flex items-center justify-center mt-1">
         <div class="grid grid-cols-3 gap-1">
           @for (img of data.images; track img) {
             <img
+              width="80"
+              height="80"
               tabindex="0"
               role="button"
               (keydown.enter)="changeCover(img)"
               alt="ecommerce"
               class="object-cover object-center rounded border-2 border-gray-200"
-              [src]="img"
+              [ngSrc]="img"
               (click)="changeCover(img)"
               [class.border-red-400]="img === cover()"
+              priority
             />
           }
         </div>
