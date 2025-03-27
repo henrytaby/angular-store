@@ -6,7 +6,7 @@
       </li>
       @for (category of categories(); track category) {
         <li>
-          <a routerLink="/" [queryParams]="{ category_id: category.id }">{{
+          <a routerLink="/category/{{ category.slug }}">{{
             category.name
           }}</a>
         </li>

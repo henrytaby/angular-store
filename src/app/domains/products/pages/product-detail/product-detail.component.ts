@@ -10,15 +10,15 @@ import { CartService } from '@shared/services/cart.service';
   templateUrl: './product-detail.component.html',
 })
 export default class ProductDetailComponent implements OnInit {
-  @Input() id?: string;
+  @Input() slug?: string;
   product = signal<Product | null>(null);
   cover = signal('');
   private productService = inject(ProductService);
   private cartService = inject(CartService);
 
   ngOnInit() {
-    if (this.id) {
-      this.productService.getOne(this.id).subscribe({
+    if (this.slug) {
+      this.productService.getOne({slug: this.slug}).subscribe({
         next: (product) => {
           this.product.set(product);
           if (product.images.length > 0) {

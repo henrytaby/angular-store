@@ -9,10 +9,14 @@ import { environment } from '@env/environment';
 export class ProductService {
   private readonly http = inject(HttpClient);
 
-  getProducts(category_id?: string) {
+  getProducts(params:{category_id?: string, category_slug?:string}) {
     const url = new URL(`${environment.apiUrl}/api/v1/products`);
-    if (category_id) {
-      url.searchParams.set('categoryId', category_id);
+    if (params.category_id) {
+      url.searchParams.set('categoryId', params.category_id);
+    }
+
+    if (params.category_slug) {
+      url.searchParams.set('categorySlug', params.category_slug);
     }
 
     return this.http.get<Product[]>(url.toString()).pipe(
@@ -27,9 +31,16 @@ export class ProductService {
     );
   }
 
-  getOne(id: string) {
+  getOne(params:{id?: string, slug?:string}) {
+    let urlGet = "";
+    if (params.id){
+      urlGet = `${environment.apiUrl}/api/v1/products/${params.id}`;
+    }
+    if (params.slug){
+      urlGet = `${environment.apiUrl}/api/v1/products/slug/${params.slug}`;
+    }
     return this.http
-      .get<Product>(`${environment.apiUrl}/api/v1/products/${id}`)
+      .get<Product>(urlGet)
       .pipe(
         map((product) => ({
           ...product,
