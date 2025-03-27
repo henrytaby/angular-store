@@ -1,24 +1,44 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Input, signal, SimpleChange, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ProductComponent} from '@products/components/product/product.component';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
+import { CategoryService } from '@shared/services/category.service';
+import { Category } from '@shared/models/category.mode';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule, ProductComponent],
+  imports: [CommonModule, ProductComponent,RouterLink],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export class ListComponent {
+export default class ListComponent {
 
   products = signal<Product[]>([]);
+  categories = signal<Category[]>([]);
   private readonly cartService = inject(CartService);
   private readonly productService = inject(ProductService);
+  private readonly categoryService = inject(CategoryService);
+
+  @Input() category_id?: string;
 
   ngOnInit(){
-    this.productService.getProducts()
+    this.getProducts();
+    this.getCategory();
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    this.getProducts()
+  }
+
+  addToCart(product: Product){
+    this.cartService.addToCart(product);
+  }
+
+  private getProducts(){
+    this.productService.getProducts(this.category_id)
     .subscribe({
       next: (products) => {
         this.products.set(products)
@@ -29,8 +49,16 @@ export class ListComponent {
     });
   }
 
-
-  addToCart(product: Product){
-    this.cartService.addToCart(product);
+  private getCategory(){
+    this.categoryService.getAll()
+    .subscribe({
+      next: (data) => {
+        this.categories.set(data)
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
+
 }
