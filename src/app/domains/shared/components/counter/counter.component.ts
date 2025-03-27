@@ -7,6 +7,7 @@ import {
   input,
   effect,
   computed,
+  model,
 } from '@angular/core';
 
 @Component({
@@ -16,13 +17,13 @@ import {
   styleUrl: './counter.component.css',
 })
 export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
-  //@Input({ required: true }) duration = 0;
+
   duration =input.required<number>();
   doubleDuration = computed(()=> this.duration() * 2);
-  //@Input({ required: true }) message = '';
-  message = input.required<string>();
+  message = model.required<string>();
   counter = signal(0);
   counterRef: number | undefined;
+
 
   constructor() {
     // NO ASYNC
@@ -103,6 +104,10 @@ export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
 
   doSomethingTwo() {
     console.log('Change Message');
+  }
+
+  setMessage(){
+    this.message.set('Hola Como estas? ' + Math.random().toString());
   }
 
 }

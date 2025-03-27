@@ -13,8 +13,16 @@
   <p>
     <input [(ngModel)]="duration" type="range" min="0" max="1000">
   </p>
+  <hr>
+  <p>
+    Parent message: {{ message() }}
+  </p>
+  <hr>
   @if (duration() > 0) {
-    <app-counter [duration]="duration()" [message]="message()" />
+    <app-counter
+    [duration]="duration()"
+    [(message)]="message"
+    />
   }
 
   <div>
