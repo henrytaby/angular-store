@@ -6,7 +6,7 @@ import { RouterLinkWithHref, RouterLinkActive } from '@angular/router';
   selector: 'app-header',
   imports: [RouterLinkWithHref, RouterLinkActive],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   hideSideMenu = signal(true);
@@ -16,9 +16,8 @@ export class HeaderComponent {
   cart = this.cartService.cart;
   total = this.cartService.total;
 
-  toggleSideMenu(){
-    console.log("entro!---");
-    this.hideSideMenu.update(prevState => !prevState);
+  toggleSideMenu() {
+    console.log('entro!---');
+    this.hideSideMenu.update((prevState) => !prevState);
   }
-
 }

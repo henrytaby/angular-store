@@ -7,39 +7,36 @@ import { CartService } from '@shared/services/cart.service';
   selector: 'app-product-detail',
   imports: [CommonModule],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.css'
+  styleUrl: './product-detail.component.css',
 })
 export default class ProductDetailComponent implements OnInit {
   @Input() id?: string;
   product = signal<Product | null>(null);
   cover = signal('');
-  private readonly productService= inject(ProductService);
+  private readonly productService = inject(ProductService);
   private readonly cartService = inject(CartService);
 
-  ngOnInit(){
+  ngOnInit() {
     if (this.id) {
-      this.productService.getOne(this.id)
-      .subscribe({
+      this.productService.getOne(this.id).subscribe({
         next: (product) => {
           this.product.set(product);
-          if(product.images.length>0){
+          if (product.images.length > 0) {
             this.cover.set(product.images[0]);
           }
-        }
+        },
       });
     }
   }
 
-  changeCover(newImg: string){
+  changeCover(newImg: string) {
     this.cover.set(newImg);
   }
 
-  addtoCart(){
+  addtoCart() {
     const product = this.product();
-    if (product){
-      this.cartService.addToCart(product)
+    if (product) {
+      this.cartService.addToCart(product);
     }
-
   }
-
 }

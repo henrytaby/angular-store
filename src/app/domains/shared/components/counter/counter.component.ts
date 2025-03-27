@@ -1,16 +1,27 @@
-import { Component, Input, signal, SimpleChanges, OnChanges, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  signal,
+  SimpleChanges,
+  OnChanges,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-counter',
   imports: [],
   templateUrl: './counter.component.html',
-  styleUrl: './counter.component.css'
+  styleUrl: './counter.component.css',
 })
-export class CounterComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
-  @Input({required:true}) duration = 0;
-  @Input({required:true}) message = '';
+export class CounterComponent
+  implements OnChanges, OnInit, AfterViewInit, OnDestroy
+{
+  @Input({ required: true }) duration = 0;
+  @Input({ required: true }) message = '';
   counter = signal(0);
-  counterRef : number | undefined;
+  counterRef: number | undefined;
 
   constructor() {
     // NO ASYNC
@@ -19,13 +30,13 @@ export class CounterComponent implements OnChanges, OnInit, AfterViewInit, OnDes
     console.log('-'.repeat(10));
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(changes: SimpleChanges) {
     // before and during render
     console.log('Changes');
     console.log('-'.repeat(10));
     console.log(changes);
     const duration = changes['duration'];
-    if(duration && duration.currentValue !== duration.previousValue){
+    if (duration && duration.currentValue !== duration.previousValue) {
       this.doSomething();
     }
 
@@ -44,10 +55,8 @@ export class CounterComponent implements OnChanges, OnInit, AfterViewInit, OnDes
 
     this.counterRef = window.setInterval(() => {
       console.log('Run Counter:');
-      this.counter.update(statPrev => statPrev + 1);
-    }
-    , 1000);
-
+      this.counter.update((statPrev) => statPrev + 1);
+    }, 1000);
   }
 
   ngAfterViewInit() {
@@ -70,12 +79,7 @@ export class CounterComponent implements OnChanges, OnInit, AfterViewInit, OnDes
     window.clearInterval(this.counterRef);
   }
 
-  doSomething(){
+  doSomething() {
     console.log('Change Duration');
   }
-
-
-
-
 }
-

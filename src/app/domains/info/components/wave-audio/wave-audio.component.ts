@@ -1,4 +1,11 @@
-import { Component, Input, ViewChild, ElementRef, signal, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  signal,
+  AfterViewInit,
+} from '@angular/core';
 
 import WaveSurfer from 'wavesurfer.js';
 
@@ -6,10 +13,10 @@ import WaveSurfer from 'wavesurfer.js';
   selector: 'app-wave-audio',
   imports: [],
   templateUrl: './wave-audio.component.html',
-  styleUrl: './wave-audio.component.css'
+  styleUrl: './wave-audio.component.css',
 })
 export class WaveAudioComponent implements AfterViewInit {
-  @Input({required:true}) audioUrl!: string;
+  @Input({ required: true }) audioUrl!: string;
   @ViewChild('wave') container!: ElementRef;
   private ws!: WaveSurfer;
   isPlaying = signal(false);
@@ -19,7 +26,7 @@ export class WaveAudioComponent implements AfterViewInit {
       url: this.audioUrl,
       container: this.container.nativeElement,
       waveColor: 'violet',
-      progressColor: 'purple'
+      progressColor: 'purple',
     });
     this.ws.on('play', () => this.isPlaying.set(true));
     this.ws.on('pause', () => this.isPlaying.set(false));
@@ -28,5 +35,4 @@ export class WaveAudioComponent implements AfterViewInit {
   playPause() {
     this.ws.playPause();
   }
-
 }
