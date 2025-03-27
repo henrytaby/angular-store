@@ -9,8 +9,6 @@ import { Product } from '@shared/models/product.model';
 export class ProductService {
   private readonly http = inject(HttpClient);
 
-  constructor() { }
-
   getProducts(category_id?:string) {
 
     const url = new URL(`https://api.escuelajs.co/api/v1/products`);

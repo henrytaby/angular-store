@@ -11,6 +11,9 @@
       <div class="grid grid-cols-3 gap-1">
         @for (img of product()?.images; track img) {
           <img
+            tabindex="0"
+            role="button"
+            (keydown.enter)="changeCover(img)"
             alt="ecommerce"
             class="object-cover object-center rounded border-2 border-gray-200 cursor-pointer"
             [src]="img"

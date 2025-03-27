@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, signal, OnInit, OnChanges } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 import { ProductComponent} from '@products/components/product/product.component';
@@ -14,7 +14,7 @@ import { Category } from '@shared/models/category.mode';
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
-export default class ListComponent {
+export default class ListComponent implements OnInit, OnChanges {
 
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
@@ -29,7 +29,7 @@ export default class ListComponent {
     this.getCategory();
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  ngOnChanges(){
     this.getProducts()
   }
 

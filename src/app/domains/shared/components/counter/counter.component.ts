@@ -1,4 +1,4 @@
-import { Component, Input, signal, SimpleChanges } from '@angular/core';
+import { Component, Input, signal, SimpleChanges, OnChanges, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -6,7 +6,7 @@ import { Component, Input, signal, SimpleChanges } from '@angular/core';
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.css'
 })
-export class CounterComponent {
+export class CounterComponent implements OnChanges, OnInit, AfterViewInit, OnDestroy {
   @Input({required:true}) duration = 0;
   @Input({required:true}) message = '';
   counter = signal(0);
@@ -77,8 +77,5 @@ export class CounterComponent {
 
 
 
-}
-function Interval(arg0: () => void, arg1: number) {
-  throw new Error('Function not implemented.');
 }
 
