@@ -1,38 +1,41 @@
 import {
   Component,
-  inject,
   Input,
+  inject,
   signal,
   OnInit,
   OnChanges,
 } from '@angular/core';
-
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterLinkWithHref } from '@angular/router';
 import { ProductComponent } from '@products/components/product/product.component';
+import { HeaderComponent } from '@shared/components/header/header.component';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
-import { Category } from '@shared/models/category.mode';
+import { Category } from '@shared/models/category.model';
 
 @Component({
   selector: 'app-list',
-  imports: [ProductComponent, RouterLink],
+  imports: [
+    CommonModule,
+    ProductComponent,
+    HeaderComponent,
+    RouterLinkWithHref,
+  ],
   templateUrl: './list.component.html',
-  styleUrl: './list.component.css',
 })
 export default class ListComponent implements OnInit, OnChanges {
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
-  private readonly cartService = inject(CartService);
-  private readonly productService = inject(ProductService);
-  private readonly categoryService = inject(CategoryService);
-
+  private cartService = inject(CartService);
+  private productService = inject(ProductService);
+  private categoryService = inject(CategoryService);
   @Input() category_id?: string;
 
   ngOnInit() {
-    this.getProducts();
-    this.getCategory();
+    this.getCategories();
   }
 
   ngOnChanges() {
@@ -48,19 +51,19 @@ export default class ListComponent implements OnInit, OnChanges {
       next: (products) => {
         this.products.set(products);
       },
-      error: (error) => {
-        console.error(error);
+      error: () => {
+        console.log('Error get Product');
       },
     });
   }
 
-  private getCategory() {
+  private getCategories() {
     this.categoryService.getAll().subscribe({
       next: (data) => {
         this.categories.set(data);
       },
-      error: (error) => {
-        console.error(error);
+      error: () => {
+        console.log('Error get Category');
       },
     });
   }

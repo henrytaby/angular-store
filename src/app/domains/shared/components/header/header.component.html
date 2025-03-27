@@ -1,48 +1,86 @@
 <nav>
   <div class="w-full flex flex-wrap items-center justify-between mx-auto py-4">
-    <div class="flex items-center space-x-8">
-      <a href="/" class="flex items-center">
-        <img src="assets/images/logo.svg" class="h-6 mr-3" alt="Tienda" />
-        <span class="self-center text-xl font-semibold whitespace-nowrap"
-          >Tienda</span
-        >
-      </a>
-      <ul class="flex space-x-6">
-        <li>
-          <a
-            routerLink="/"
-            routerLinkActive="underline"
-            [routerLinkActiveOptions]="{ exact: true }"
-            class="block hover:underline"
-            aria-current="page"
-            >Home</a
-          >
-        </li>
-        <li>
-          <a
-            routerLink="/about"
-            routerLinkActive="underline"
-            class="block hover:underline"
-            >About</a
-          >
-        </li>
-        <li>
-          <a
-            routerLink="/services"
-            routerLinkActive="underline"
-            class="block hover:underline"
-            >Services</a
-          >
-        </li>
-      </ul>
-    </div>
     <div class="flex items-center">
       <button
-        class="p-1 border rounded relative cursor-pointer"
-        (click)="toggleSideMenu()"
+        (click)="toggleMenu()"
+        data-collapse-toggle="navbar-default"
+        type="button"
+        class="mr-4 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+        aria-controls="navbar-default"
+        aria-expanded="false"
       >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"
+          />
+        </svg>
+      </button>
+      <a href="/" class="flex items-center mr-10">
+        <img src="/assets/images/logo.svg" class="h-10" alt="NgStore" />
+        <span class="self-center text-xl font-semibold whitespace-nowrap"
+          >NgStore</span
+        >
+      </a>
+      <div
+        class="flex-col items-center border rounded-lg absolute top-16 left-3 bg-white p-4 md:relative md:top-0 md:left-0 md:flex md:flex-row md:space-x-4 md:border-none md:p-0"
+        [class.hidden]="!showMenu()"
+      >
+        <ul
+          class="flex flex-col space-y-4 mb-4 md:flex-row md:space-y-0 md:space-x-4 md:mb-0"
+        >
+          <li>
+            <a
+              routerLink="/"
+              routerLinkActive="underline"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="block hover:underline"
+              aria-current="page"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/about"
+              routerLinkActive="underline"
+              class="block hover:underline"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/locations"
+              routerLinkActive="underline"
+              class="block hover:underline"
+              >Locations</a
+            >
+          </li>
+          <li>
+            <a
+              routerLink="/services"
+              routerLinkActive="underline"
+              class="block hover:underline"
+              >Services</a
+            >
+          </li>
+        </ul>
+        <app-search />
+      </div>
+    </div>
+    <div class="flex items-center">
+      <button class="p-2 border rounded relative" (click)="toogleSideMenu()">
         <div
-          class="absolute -top-2 -left-2 rounded h-5 w-5 text-white text-xs bg-black"
+          class="absolute -top-2 -left-2 rounded h-5 w-5 bg-black text-white text-xs"
         >
           {{ cart().length }}
         </div>
@@ -66,12 +104,12 @@
 </nav>
 
 <div
-  class="fixed border-l-2 top-0 right-0 z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
+  class="fixed border-l-4 top-0 right-0 bg-red z-40 w-72 h-screen p-4 overflow-y-auto transition-transform bg-white"
   [class.translate-x-full]="hideSideMenu()"
 >
   <div class="flex justify-between items-center">
     <p class="text-xl">My Cart</p>
-    <button class="px-4 cursor-pointer" (click)="toggleSideMenu()">
+    <button (click)="toogleSideMenu()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -88,27 +126,22 @@
       </svg>
     </button>
   </div>
-  <div class="pt-2">
+  <div class="pt-4 flex flex-col">
     @for (product of cart(); track product) {
-      <div class="border-1 mb-1 rounded border-gray-400">
+      <div class="flex justify-between items-center space-y-2">
         <div class="flex space-x-2 items-center">
           <img
+            class="w-6 h-6"
             [src]="product.images[0]"
             [alt]="product.title"
-            class="rounded w-12 h-12 object-cover object-center"
           />
-          <div>
-            <p>{{ product.title }}</p>
-            <p class="text-xs">{{ product.price }} Bs.</p>
-          </div>
+          <h3>{{ product.title }}</h3>
         </div>
+        <p>{{ product.price }}</p>
       </div>
     }
-
     <div>
-      <p>
-        Total : <strong>{{ total() }} Bs.</strong>
-      </p>
+      <p>Total: {{ total() }}</p>
     </div>
   </div>
 </div>
