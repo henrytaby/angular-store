@@ -8,12 +8,14 @@
     iste! Accusamus quisquam a numquam!
   </p>
 
-  <p class="text-xs text-justify">
-    Numero de clientes
-    @if (duration() > 0) {
-      <app-counter [duration]="duration()" [message]="message()" />
-    }
+  <p class="text-xs text-justify">Numero de clientes</p>
+
+  <p>
+    <input [(ngModel)]="duration" type="range" min="0" max="1000">
   </p>
+  @if (duration() > 0) {
+    <app-counter [duration]="duration()" [message]="message()" />
+  }
 
   <div>
     <app-wave-audio audioUrl="assets/audio.mp3"></app-wave-audio>

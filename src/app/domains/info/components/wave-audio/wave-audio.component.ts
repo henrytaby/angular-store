@@ -1,10 +1,10 @@
 import {
   Component,
-  Input,
   ViewChild,
   ElementRef,
   signal,
   AfterViewInit,
+  input
 } from '@angular/core';
 
 import WaveSurfer from 'wavesurfer.js';
@@ -16,14 +16,14 @@ import WaveSurfer from 'wavesurfer.js';
   styleUrl: './wave-audio.component.css',
 })
 export class WaveAudioComponent implements AfterViewInit {
-  @Input({ required: true }) audioUrl!: string;
+  readonly audioUrl = input.required<string>();
   @ViewChild('wave') container!: ElementRef;
   private ws!: WaveSurfer;
   isPlaying = signal(false);
 
   ngAfterViewInit() {
     this.ws = WaveSurfer.create({
-      url: this.audioUrl,
+      url: this.audioUrl(),
       container: this.container.nativeElement,
       waveColor: 'violet',
       progressColor: 'purple',

@@ -1,12 +1,12 @@
 import {
   Component,
-  Input,
   signal,
-  SimpleChanges,
-  OnChanges,
   OnInit,
   AfterViewInit,
   OnDestroy,
+  input,
+  effect,
+  computed,
 } from '@angular/core';
 
 @Component({
@@ -15,11 +15,12 @@ import {
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.css',
 })
-export class CounterComponent
-  implements OnChanges, OnInit, AfterViewInit, OnDestroy
-{
-  @Input({ required: true }) duration = 0;
-  @Input({ required: true }) message = '';
+export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
+  //@Input({ required: true }) duration = 0;
+  duration =input.required<number>();
+  doubleDuration = computed(()=> this.duration() * 2);
+  //@Input({ required: true }) message = '';
+  message = input.required<string>();
   counter = signal(0);
   counterRef: number | undefined;
 
@@ -28,8 +29,19 @@ export class CounterComponent
     // before render
     console.log('Constructor');
     console.log('-'.repeat(10));
+
+    effect(()=>{
+      this.duration();
+      this.doSomething();
+    });
+
+    effect(()=>{
+      this.message();
+      this.doSomethingTwo();
+    });
   }
 
+  /*
   ngOnChanges(changes: SimpleChanges) {
     // before and during render
     console.log('Changes');
@@ -42,6 +54,7 @@ export class CounterComponent
 
     console.log('-'.repeat(10));
   }
+    */
 
   ngOnInit() {
     // after render
@@ -49,8 +62,8 @@ export class CounterComponent
     // Async, then, subscribe
     console.log('Init');
     console.log('-'.repeat(15));
-    console.log('Duration:', this.duration);
-    console.log('Message:', this.message);
+    console.log('Duration:', this.duration());
+    console.log('Message:', this.message());
     console.log('-'.repeat(15));
 
     this.counterRef = window.setInterval(() => {
@@ -59,6 +72,8 @@ export class CounterComponent
     }, 1000);
   }
 
+
+
   ngAfterViewInit() {
     // after render - despues de ngOnInit()
     // despues de renderizar los hijos - si los hijos ya fueron renderizados
@@ -66,10 +81,13 @@ export class CounterComponent
     // Async, then, subscribe
     console.log('After View Init');
     console.log('-'.repeat(15));
-    console.log('Duration:', this.duration);
-    console.log('Message:', this.message);
+    console.log('Duration:', this.duration());
+    console.log('Message:', this.message());
     console.log('-'.repeat(15));
   }
+
+
+
   ngOnDestroy() {
     // before destroy
     // Una vez
@@ -82,4 +100,9 @@ export class CounterComponent
   doSomething() {
     console.log('Change Duration');
   }
+
+  doSomethingTwo() {
+    console.log('Change Message');
+  }
+
 }

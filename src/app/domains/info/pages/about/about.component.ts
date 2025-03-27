@@ -3,9 +3,10 @@ import { Component, signal } from '@angular/core';
 import { CounterComponent } from '@shared/components/counter/counter.component';
 import { WaveAudioComponent } from '../../components/wave-audio/wave-audio.component';
 import { HighlightDirective } from '@shared/directives/highlight.directive';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-about',
-  imports: [CounterComponent, WaveAudioComponent, HighlightDirective],
+  imports: [CounterComponent, WaveAudioComponent, HighlightDirective, FormsModule],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })
