@@ -9,7 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
 import { ProductComponent } from '@products/components/product/product.component';
-import { HeaderComponent } from '@shared/components/header/header.component';
+
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
@@ -21,9 +21,8 @@ import { Category } from '@shared/models/category.model';
   imports: [
     CommonModule,
     ProductComponent,
-    HeaderComponent,
-    RouterLinkWithHref,
-  ],
+    RouterLinkWithHref
+],
   templateUrl: './list.component.html',
 })
 export default class ListComponent implements OnInit, OnChanges {

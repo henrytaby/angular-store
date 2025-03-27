@@ -72,6 +72,14 @@
               ],
               "outputHashing": "all"
             },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -91,6 +99,9 @@
           "configurations": {
             "production": {
               "buildTarget": "angular-store:build:production"
+            },
+            "staging": {
+              "buildTarget": "angular-store:build:staging"
             },
             "development": {
               "buildTarget": "angular-store:build:development"
