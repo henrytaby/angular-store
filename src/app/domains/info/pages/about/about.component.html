@@ -28,4 +28,13 @@
   <div>
     <app-wave-audio audioUrl="assets/audio.mp3"></app-wave-audio>
   </div>
+
+  <p>whit init: {{ $withInit() }}</p>
+  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  (click)="emitWithInit()">emit With init</button>
+
+  <p>Without init: {{ $withoutInit() }}</p>
+  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  (click)="emitWithoutInit()">emit Without init</button>
+
 </div>
