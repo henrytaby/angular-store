@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
 import { Product } from '@shared/models/product.model';
@@ -12,7 +12,7 @@ import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 export class ProductComponent {
   readonly product = input.required<Product>();
 
-  @Output() addToCart = new EventEmitter();
+  readonly addToCart = output<Product>();
 
   addToCartHandler() {
     this.addToCart.emit(this.product());
