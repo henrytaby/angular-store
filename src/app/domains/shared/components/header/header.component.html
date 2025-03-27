@@ -1,3 +1,5 @@
+@let cartData = cart();
+
 <nav>
   <div class="w-full flex flex-wrap items-center justify-between mx-auto py-4">
     <div class="flex items-center">
@@ -82,7 +84,7 @@
         <div
           class="absolute -top-2 -left-2 rounded h-5 w-5 bg-black text-white text-xs"
         >
-          {{ cart().length }}
+          {{ cartData.length }}
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +129,7 @@
     </button>
   </div>
   <div class="pt-4 flex flex-col">
-    @for (product of cart(); track product) {
+    @for (product of cartData; track product) {
       <div class="flex justify-between items-center space-y-2">
         <div class="flex space-x-2 items-center">
           <img
