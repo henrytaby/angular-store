@@ -4,7 +4,9 @@
 
   <p class="text-xs text-justify">
     Numero de clientes
-    <app-counter [duration]="duration()" [message]="message()" *ngIf="duration()>0"/>
+    @if (duration()>0) {
+      <app-counter [duration]="duration()" [message]="message()"/>
+    }
   </p>
 
   <div>
