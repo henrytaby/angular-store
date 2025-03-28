@@ -1,7 +1,8 @@
 import {
   Component,
   inject,
-  input
+  input,
+  resource
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
@@ -33,8 +34,8 @@ export default class ListComponent {
     loader: ({ request }) => this.productService.getProducts(request),
   })
 
-  categoriesResource = rxResource({
-    loader: () => this.categoryService.getAll(),
+  categoriesResource = resource({
+    loader: () => this.categoryService.getAllPromise(),
   });
 
   addToCart(product: Product) {
