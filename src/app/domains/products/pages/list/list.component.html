@@ -12,11 +12,18 @@
     >
     Reload categories
     </button>
-    <button class="bg-blue-500 text-white px-4 py-2 rounded-md"
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
     (click) = "resetCategories()"
     >
     Reset categories
     </button>
+
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md mb-2"
+    (click) = "reloadProducts()"
+    >
+    Reload Products
+    </button>
+
     <ul class="text-center md:text-left">
       <li>
         <a routerLink="/">All</a>
@@ -31,7 +38,7 @@
     </ul>
   </div>
   <div class="grid grid-cols-2 gap-2 w-full md:grid-cols-3 xl:grid-cols-4">
-    @for (product of products(); track product) {
+    @for (product of productsResources.value(); track product) {
       <app-product [product]="product" (addToCart)="addToCart($event)" />
     }
   </div>
