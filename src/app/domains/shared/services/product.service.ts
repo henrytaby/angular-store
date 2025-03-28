@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 export class ProductService {
   private readonly http = inject(HttpClient);
 
-  getProducts(params:{category_id?: string, category_slug?:string}) {
+  getProducts(params: { category_id?: string; category_slug?: string }) {
     const url = new URL(`${environment.apiUrl}/api/v1/products`);
     if (params.category_id) {
       url.searchParams.set('categoryId', params.category_id);
@@ -31,23 +31,21 @@ export class ProductService {
     );
   }
 
-  getOne(params:{id?: string, slug?:string}) {
-    let urlGet = "";
-    if (params.id){
+  getOne(params: { id?: string; slug?: string }) {
+    let urlGet = '';
+    if (params.id) {
       urlGet = `${environment.apiUrl}/api/v1/products/${params.id}`;
     }
-    if (params.slug){
+    if (params.slug) {
       urlGet = `${environment.apiUrl}/api/v1/products/slug/${params.slug}`;
     }
-    return this.http
-      .get<Product>(urlGet)
-      .pipe(
-        map((product) => ({
-          ...product,
-          images: product.images.map(
-            () => 'https://picsum.photos/480/480?r=' + Math.random(),
-          ),
-        })),
-      );
+    return this.http.get<Product>(urlGet).pipe(
+      map((product) => ({
+        ...product,
+        images: product.images.map(
+          () => 'https://picsum.photos/480/480?r=' + Math.random(),
+        ),
+      })),
+    );
   }
 }

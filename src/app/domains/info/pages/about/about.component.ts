@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { toSignal } from '@angular/core/rxjs-interop'
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CounterComponent } from '@shared/components/counter/counter.component';
 import { WaveAudioComponent } from '@info/components/wave-audio/wave-audio.component';
 import { HighlightDirective } from '@shared/directives/highlight.directive';
@@ -8,7 +8,12 @@ import { HighlightDirective } from '@shared/directives/highlight.directive';
 import { BehaviorSubject, delay, Subject } from 'rxjs';
 @Component({
   selector: 'app-about',
-  imports: [CounterComponent, WaveAudioComponent, HighlightDirective, FormsModule],
+  imports: [
+    CounterComponent,
+    WaveAudioComponent,
+    HighlightDirective,
+    FormsModule,
+  ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })
@@ -17,13 +22,13 @@ export default class AboutComponent {
   message = signal('hola');
 
   obsWithInit$ = new BehaviorSubject<string>('init value ----');
-  $withInit = toSignal(this.obsWithInit$,{
+  $withInit = toSignal(this.obsWithInit$, {
     requireSync: true,
   });
 
   obsWithoutInit$ = new Subject<string>();
-  $withoutInit = toSignal(this.obsWithoutInit$.pipe(delay(3000)),{
-    initialValue: '----'
+  $withoutInit = toSignal(this.obsWithoutInit$.pipe(delay(3000)), {
+    initialValue: '----',
   });
 
   changeDuration(event: Event) {
@@ -35,11 +40,11 @@ export default class AboutComponent {
     console.log('changeMessage', event);
   }
 
-  emitWithInit(){
+  emitWithInit() {
     this.obsWithInit$.next('new Value');
   }
 
-  emitWithoutInit(){
+  emitWithoutInit() {
     this.obsWithoutInit$.next('******');
   }
 }

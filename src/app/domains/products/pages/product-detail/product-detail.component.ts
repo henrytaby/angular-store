@@ -1,4 +1,11 @@
-import { Component, inject, signal, OnInit, input, linkedSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  OnInit,
+  input,
+  linkedSignal,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ProductService } from '@shared/services/product.service';
 import { Product } from '@shared/models/product.model';
@@ -14,8 +21,8 @@ export default class ProductDetailComponent implements OnInit {
   product = signal<Product | null>(null);
   cover = linkedSignal({
     source: this.product,
-    computation: (product, previousValue) =>{
-      if (product && product.images.length>0){
+    computation: (product, previousValue) => {
+      if (product && product.images.length > 0) {
         return product.images[0];
       }
       return previousValue?.value;
@@ -28,8 +35,8 @@ export default class ProductDetailComponent implements OnInit {
   ngOnInit() {
     const slug = this.slug();
     if (slug) {
-      this.productService.getOne({slug: slug}).subscribe({
-        next: product => {
+      this.productService.getOne({ slug: slug }).subscribe({
+        next: (product) => {
           this.product.set(product);
         },
       });

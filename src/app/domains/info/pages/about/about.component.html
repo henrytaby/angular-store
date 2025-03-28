@@ -13,16 +13,11 @@
   <p>
     <input [(ngModel)]="duration" type="range" min="0" max="1000" />
   </p>
-  <hr>
-  <p>
-    Parent message: {{ message() }}
-  </p>
-  <hr>
+  <hr />
+  <p>Parent message: {{ message() }}</p>
+  <hr />
   @if (duration() > 0) {
-    <app-counter
-    [duration]="duration()"
-    [(message)]="message"
-    />
+    <app-counter [duration]="duration()" [(message)]="message" />
   }
 
   <div>
@@ -30,11 +25,18 @@
   </div>
 
   <p>whit init: {{ $withInit() }}</p>
-  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  (click)="emitWithInit()">emit With init</button>
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="emitWithInit()"
+  >
+    emit With init
+  </button>
 
   <p>Without init: {{ $withoutInit() }}</p>
-  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  (click)="emitWithoutInit()">emit Without init</button>
-
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="emitWithoutInit()"
+  >
+    emit Without init
+  </button>
 </div>

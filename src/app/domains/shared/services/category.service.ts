@@ -13,7 +13,7 @@ export class CategoryService {
     return this.http.get<Category[]>(`${environment.apiUrl}/api/v1/categories`);
   }
 
-  async getAllPromise(): Promise<Category[]>{
+  async getAllPromise(): Promise<Category[]> {
     const response = await fetch(`${environment.apiUrl}/api/v1/categories`);
     const data = await response.json();
     return data;

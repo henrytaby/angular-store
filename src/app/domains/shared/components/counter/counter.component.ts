@@ -16,14 +16,12 @@ import {
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.css',
 })
-export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
-
-  duration =input.required<number>();
-  doubleDuration = computed(()=> this.duration() * 2);
+export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
+  duration = input.required<number>();
+  doubleDuration = computed(() => this.duration() * 2);
   message = model.required<string>();
   counter = signal(0);
   counterRef: number | undefined;
-
 
   constructor() {
     // NO ASYNC
@@ -31,12 +29,12 @@ export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
     console.log('Constructor');
     console.log('-'.repeat(10));
 
-    effect(()=>{
+    effect(() => {
       this.duration();
       this.doSomething();
     });
 
-    effect(()=>{
+    effect(() => {
       this.message();
       this.doSomethingTwo();
     });
@@ -73,8 +71,6 @@ export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
     }, 1000);
   }
 
-
-
   ngAfterViewInit() {
     // after render - despues de ngOnInit()
     // despues de renderizar los hijos - si los hijos ya fueron renderizados
@@ -86,8 +82,6 @@ export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
     console.log('Message:', this.message());
     console.log('-'.repeat(15));
   }
-
-
 
   ngOnDestroy() {
     // before destroy
@@ -106,8 +100,7 @@ export class CounterComponent implements  OnInit, AfterViewInit, OnDestroy {
     console.log('Change Message');
   }
 
-  setMessage(){
+  setMessage() {
     this.message.set('Hola Como estas? ' + Math.random().toString());
   }
-
 }

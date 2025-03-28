@@ -1,9 +1,4 @@
-import {
-  Component,
-  inject,
-  input,
-  resource
-} from '@angular/core';
+import { Component, inject, input, resource } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLinkWithHref } from '@angular/router';
 import { ProductComponent } from '@products/components/product/product.component';
@@ -16,11 +11,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-list',
-  imports: [
-    CommonModule,
-    ProductComponent,
-    RouterLinkWithHref
-],
+  imports: [CommonModule, ProductComponent, RouterLinkWithHref],
   templateUrl: './list.component.html',
 })
 export default class ListComponent {
@@ -30,9 +21,9 @@ export default class ListComponent {
   readonly slug = input<string>();
 
   productsResources = rxResource({
-    request: ()=> ({ category_slug: this.slug() }),
+    request: () => ({ category_slug: this.slug() }),
     loader: ({ request }) => this.productService.getProducts(request),
-  })
+  });
 
   categoriesResource = resource({
     loader: () => this.categoryService.getAllPromise(),
@@ -42,15 +33,15 @@ export default class ListComponent {
     this.cartService.addToCart(product);
   }
 
-  resetCategories(){
+  resetCategories() {
     this.categoriesResource.set([]);
   }
 
-  reloadCategories(){
+  reloadCategories() {
     this.categoriesResource.reload();
   }
 
-  reloadProducts(){
+  reloadProducts() {
     this.productsResources.reload();
   }
 }
