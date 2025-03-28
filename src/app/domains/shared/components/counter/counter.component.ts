@@ -8,6 +8,7 @@ import {
   effect,
   computed,
   model,
+  afterNextRender,
 } from '@angular/core';
 
 @Component({
@@ -21,7 +22,7 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
   doubleDuration = computed(() => this.duration() * 2);
   message = model.required<string>();
   counter = signal(0);
-  counterRef: number | undefined;
+  counterRef: number | null = null;
 
   constructor() {
     // NO ASYNC
@@ -37,6 +38,13 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
     effect(() => {
       this.message();
       this.doSomethingTwo();
+    });
+
+    afterNextRender(() => {
+      this.counterRef = window.setInterval(() => {
+        console.log('Run Counter:');
+        this.counter.update((statPrev) => statPrev + 1);
+      }, 1000);
     });
   }
 
@@ -64,11 +72,6 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('Duration:', this.duration());
     console.log('Message:', this.message());
     console.log('-'.repeat(15));
-
-    this.counterRef = window.setInterval(() => {
-      console.log('Run Counter:');
-      this.counter.update((statPrev) => statPrev + 1);
-    }, 1000);
   }
 
   ngAfterViewInit() {
@@ -89,7 +92,9 @@ export class CounterComponent implements OnInit, AfterViewInit, OnDestroy {
     // Async, then, subscribe
     console.log('Destroy');
     console.log('-'.repeat(10));
-    window.clearInterval(this.counterRef);
+    if (this.counterRef) {
+      window.clearInterval(this.counterRef);
+    }
   }
 
   doSomething() {

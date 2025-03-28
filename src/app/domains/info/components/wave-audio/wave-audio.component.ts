@@ -2,9 +2,9 @@ import {
   Component,
   ElementRef,
   signal,
-  AfterViewInit,
   input,
   viewChild,
+  afterNextRender,
 } from '@angular/core';
 
 import WaveSurfer from 'wavesurfer.js';
@@ -15,7 +15,7 @@ import WaveSurfer from 'wavesurfer.js';
   templateUrl: './wave-audio.component.html',
   styleUrl: './wave-audio.component.css',
 })
-export class WaveAudioComponent implements AfterViewInit {
+export class WaveAudioComponent {
   readonly audioUrl = input.required<string>();
 
   $waveContainerRef = viewChild.required<ElementRef<HTMLDivElement>>('wave');
@@ -23,15 +23,16 @@ export class WaveAudioComponent implements AfterViewInit {
   private ws!: WaveSurfer;
   isPlaying = signal(false);
 
-  ngAfterViewInit() {
-    this.ws = WaveSurfer.create({
-      url: this.audioUrl(),
-      container: this.$waveContainerRef()?.nativeElement,
-
-      progressColor: 'purple',
+  constructor() {
+    afterNextRender(() => {
+      this.ws = WaveSurfer.create({
+        url: this.audioUrl(),
+        container: this.$waveContainerRef()?.nativeElement,
+        progressColor: 'purple',
+      });
+      this.ws.on('play', () => this.isPlaying.set(true));
+      this.ws.on('pause', () => this.isPlaying.set(false));
     });
-    this.ws.on('play', () => this.isPlaying.set(true));
-    this.ws.on('pause', () => this.isPlaying.set(false));
   }
 
   playPause() {
