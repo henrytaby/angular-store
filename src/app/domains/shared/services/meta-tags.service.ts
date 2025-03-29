@@ -9,7 +9,7 @@ export interface PageMetaData {
   url: string;
 }
 
-const defaultMetaData : PageMetaData = {
+const defaultMetaData: PageMetaData = {
   title: 'Ng Store',
   description: 'Ng Store is a store for NG products',
   image: '',

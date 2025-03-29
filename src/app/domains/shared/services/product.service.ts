@@ -48,4 +48,18 @@ export class ProductService {
       })),
     );
   }
+
+  getRelatedProducts(slug: string) {
+    const url = `${environment.apiUrl}/api/v1/products/slug/${slug}/related`;
+    return this.http.get<Product[]>(url).pipe(
+      map((products) =>
+        products.map((product) => ({
+          ...product,
+          images: product.images.map(
+            () => 'https://picsum.photos/480/480?r=' + Math.random(),
+          ),
+        })),
+      ),
+    );
+  }
 }
