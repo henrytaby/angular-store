@@ -57,5 +57,11 @@
     </div>
   </div>
 
-  <app-related [$slug]="data.slug" />
+  <div class="mt-120"></div>
+
+  @defer (on viewport) {
+    <app-related [$slug]="data.slug" />
+  } @placeholder {
+    <p>Loading ...</p>
+  }
 }
